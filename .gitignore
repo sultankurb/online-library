@@ -3,3 +3,4 @@
 __pycache__
 .env
 docker.env
+db.sqlite3
