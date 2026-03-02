@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     )
     BOT_TOKEN: str = ''
     DB_URL: str = ''
+    ADMIN_ID: int = 0
 
 
 def get_settings() -> Settings:
