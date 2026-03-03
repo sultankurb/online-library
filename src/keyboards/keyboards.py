@@ -1,5 +1,5 @@
 from aiogram.types import KeyboardButton
-from aiogram.utils.keyboard import  KeyboardBuilder
+from aiogram.utils.keyboard import ReplyKeyboardBuilder
 
 
 def create_keyboards(
@@ -9,14 +9,20 @@ def create_keyboards(
         request_location: int = None,
         sizes: tuple[int] = (2,),
 ):
-    keyboard = KeyboardBuilder()
-    for index, text in enumerate(buttons, start=0):
-        if request_contact and request_contact == index:
+    # 1. Use the specific ReplyKeyboardBuilder
+    keyboard = ReplyKeyboardBuilder()
+
+    for index, text in enumerate(buttons):
+        # 2. Check for special button requests
+        if request_contact is not None and index == request_contact:
             keyboard.add(KeyboardButton(text=text, request_contact=True))
-
-        elif request_location and request_location == index:
-                keyboard.add(KeyboardButton(text=text, request_location=True))
+        elif request_location is not None and index == request_location:
+            keyboard.add(KeyboardButton(text=text, request_location=True))
         else:
-                keyboard.add(KeyboardButton(text=text))
-    return keyboard.adjust(*sizes).as_markup(resize_keyboard=True, input_field_placeholder=placeholder)
+            keyboard.add(KeyboardButton(text=text))
 
+    # 3. Adjust the grid and return the markup
+    return keyboard.adjust(*sizes).as_markup(
+        resize_keyboard=True,
+        input_field_placeholder=placeholder
+    )
