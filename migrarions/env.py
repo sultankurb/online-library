@@ -6,7 +6,7 @@ from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 from src.settings import settings
 from src.database.models.base import Base
-from src.database.models.files_model import FilesORM
+from src.database.models.lessons import LessonORM
 from alembic import context
 
 config = context.config
