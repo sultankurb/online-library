@@ -13,7 +13,7 @@ class SQLAlchemyRepository(AbstractRepository):
         async with session() as s:
             stmt = select(self.model).filter_by(**filters)
             result = await s.execute(stmt)
-            return result.scalars().unique()
+            return result.scalars()
 
     async def select_one(self, filters: dict):
         async with session() as s:
